@@ -211,28 +211,38 @@ async function startBattle(){
   }
 }
 
-// ========== LLM call ==========
-async function callLLM(myItem, opponentItem){
-  // Gemini API call
-  try{
-    const resp = await fetch("https://api.gemini.ai/v1/completions",{
-      method:"POST",
-      headers:{"Authorization":"Bearer AIzaSyB6_pJUPRdcpXI_qdmEPJrCsaih8pOKbzo","Content-Type":"application/json"},
-      body: JSON.stringify({
-        model:"gemini-1.5",
-        prompt:`You are a game referee. Player used ${myItem}, opponent used ${opponentItem}. Decide winner, assign points 0-10, and explain result in 1-2 sentences.`,
-        max_output_tokens: 100
-      })
+// ========== LLM call via Vercel API ==========
+async function callLLM(prompt) {
+  try {
+    const res = await fetch('/api/llm', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt })
     });
-    const data = await resp.json();
-    return {
-      result: data.output_text.split("\n")[0] || "Draw",
-      explanation: data.output_text.split("\n")[1] || ""
-    };
-  } catch(e){
-    console.error(e); return {result:"Error", explanation:"Could not get LLM result"};
+    const data = await res.json();
+    return data; // คาดว่า data = { result: "...", explanation: "..." }
+  } catch (err) {
+    console.error("callLLM error:", err);
+    return { result: "Error", explanation: "Could not get LLM result" };
   }
 }
+
+// ตัวอย่าง startBattle ใช้ฟังก์ชันใหม่
+async function startBattle(playerItem, opponentItem) {
+  log(`Battle: You used ${playerItem.name}, Opponent used ${opponentItem.name}`);
+  
+  const prompt = `You are a game referee. Player used ${playerItem.id}, opponent used ${opponentItem.id}. Decide winner, assign points 0-10, and explain result in 1-2 sentences.`;
+  const llmResult = await callLLM(prompt);
+  
+  log(`Result: ${llmResult.result}\nExplanation: ${llmResult.explanation}`);
+
+  // ลบไอเทมที่ใช้แล้ว
+  localInventory = localInventory.filter(i => i && i.id !== playerItem.id);
+  renderInventory();
+
+  // TODO: update opponent inventory ผ่าน Firestore
+}
+
 
 // ========== Exports / UI ==========
 window.createRoom = createRoom;
@@ -241,3 +251,4 @@ createBtn.onclick=createRoom;
 joinBtn.onclick=joinRoom;
 renderInventory();
 currentPair={a: randFromPool(), b: randFromPool()}; renderPair();
+
