@@ -1,86 +1,50 @@
 <!doctype html>
 <html lang="th">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Decido Duel — Pick Phase (Prototype)</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="app.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Decido Duel — Pick Phase</title>
+<link rel="stylesheet" href="style.css" />
+<script type="module" src="app.js"></script>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Decido Duel — Pick Phase</h1>
-    </header>
+<div class="container">
+  <header><h1>Decido Duel — Pick Phase</h1></header>
 
-    <section class="lobby">
-      <div class="room-controls">
-        <input id="roomInput" placeholder="Enter room code (e.g. ABC123)" />
-        <button id="createBtn">Create Room</button>
-        <button id="joinBtn">Join Room</button>
-        <div id="status" class="status">Not connected</div>
-      </div>
-      <div id="roomInfo" class="room-info hidden"></div>
-    </section>
+  <section class="lobby">
+    <div class="room-controls">
+      <input id="roomInput" placeholder="Enter room code (e.g. ABC123)" />
+      <button id="createBtn">Create Room</button>
+      <button id="joinBtn">Join Room</button>
+      <div id="status" class="status">Not connected</div>
+    </div>
+    <div id="roomInfo" class="room-info hidden"></div>
+  </section>
 
-    <section class="game-area hidden" id="gameArea">
-      <div class="top-row">
-        <div class="player-info" id="playerInfo">Player: -</div>
-        <div class="picks-info" id="picksInfo">Picks: 0 / 12</div>
-      </div>
+  <section class="game-area hidden" id="gameArea">
+    <div class="top-row">
+      <div class="player-info" id="playerInfo">Player: -</div>
+      <div class="picks-info" id="picksInfo">Picks: 0 / 12</div>
+    </div>
 
-      <div class="pair-area">
-        <div class="item-card" id="itemA"></div>
-        <div class="vs">VS</div>
-        <div class="item-card" id="itemB"></div>
-      </div>
+    <div class="pair-area">
+      <div class="item-card" id="itemA"></div>
+      <div class="vs">VS</div>
+      <div class="item-card" id="itemB"></div>
+    </div>
 
-      <div class="controls">
-        <button id="nextPairBtn" class="hidden">Next Pair</button>
-        <div id="replaceHint" class="hint hidden">Inventory full — click a slot to replace</div>
-      </div>
+    <div class="controls">
+      <button id="nextPairBtn" class="hidden">Next Pair</button>
+      <div id="replaceHint" class="hint hidden">Inventory full — click a slot to replace</div>
+    </div>
 
-      <div class="inventory-area">
-        <h3>Your Inventory (6)</h3>
-        <div id="inventory" class="inventory-grid"></div>
-      </div>
+    <div class="inventory-area">
+      <h3>Your Inventory (6)</h3>
+      <div id="inventory" class="inventory-grid"></div>
+    </div>
 
-      <div id="log" class="log"></div>
-    </section>
-  </div>
-
-  <!-- Firebase SDK (modular) -->
-  <script type="module" src="app.js">
-    // --- Paste the following code into app.js file normally.
-    // For simplicity in this demo, we will import app.js here:
-
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "firebase/app";
-    import { getAnalytics } from "firebase/analytics";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-    apiKey: "AIzaSyC-kNa6suk3gVpAxc5sg1PpxY7nUbDxzjM",
-    authDomain: "decido-8525c.firebaseapp.com",
-    projectId: "decido-8525c",
-    storageBucket: "decido-8525c.firebasestorage.app",
-    messagingSenderId: "60769731900",
-    appId: "1:60769731900:web:39a75c8f61d835f7638a39",
-    measurementId: "G-ZRMPM4YK6G"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    import 'app.js';
-  </script>
-  
+    <div id="log" class="log"></div>
+  </section>
+</div>
 </body>
 </html>
-
-
-
-
