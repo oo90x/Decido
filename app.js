@@ -320,6 +320,11 @@ async function saveLocalPickToRoom(item) {
   }
 }
 
+// ChatGPT
+window.createRoom = createRoom;
+window.joinRoom = joinRoom;
+
+
 // UI: wire up create/join
 createBtn.onclick = createRoom;
 joinBtn.onclick = joinRoom;
@@ -330,3 +335,4 @@ renderInventory();
 // Generate initial pair (will be used when joined)
 currentPair = { a: randFromPool(), b: randFromPool() };
 renderPair();
+
