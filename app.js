@@ -19,7 +19,7 @@ const db = getFirestore(app);
 
 // ========== GAME CONST ==========
 const INVENTORY_SIZE = 6;
-const PICKS_LIMIT = 24;
+const PICKS_LIMIT = 9;
 const itemsPool = [
   { id: "cat", name: "แมว", img: "https://i.imgur.com/O1kX9Zk.png" },
   { id: "rabbit", name: "กระต่าย", img: "https://i.imgur.com/Z6aW7oF.png" },
@@ -247,3 +247,4 @@ joinBtn.onclick = joinRoom;
 renderInventory();
 currentPair = { a: randFromPool(), b: randFromPool() };
 renderPair();
+
